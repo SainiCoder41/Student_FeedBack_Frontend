@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modern Admin Dashboard Design System */
+
+@layer base {
+  :root {
+    /* Dark Theme Base Colors - HSL only */
+    --background: 216 27% 8%;
+    --foreground: 210 40% 95%;
+    
+    /* Dashboard Cards */
+    --card: 217 26% 12%;
+    --card-foreground: 210 40% 95%;
+    --card-glow: 217 26% 15%;
+    
+    /* Primary Brand - Blue/Teal Accent */
+    --primary: 198 93% 60%;
+    --primary-foreground: 210 40% 98%;
+    --primary-glow: 198 93% 70%;
+    --primary-dark: 198 93% 45%;
+    
+    /* Secondary Accent */
+    --secondary: 217 26% 16%;
+    --secondary-foreground: 210 40% 85%;
+    
+    /* Success/Positive */
+    --success: 142 76% 58%;
+    --success-foreground: 210 40% 98%;
+    
+    /* Warning */
+    --warning: 38 92% 65%;
+    --warning-foreground: 217 26% 12%;
+    
+    /* Danger/Error */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    
+    /* Muted Elements */
+    --muted: 217 26% 18%;
+    --muted-foreground: 215 20% 65%;
+    
+    /* Interactive Elements */
+    --accent: 198 93% 60%;
+    --accent-foreground: 210 40% 98%;
+    
+    /* Borders & Inputs */
+    --border: 217 26% 20%;
+    --input: 217 26% 16%;
+    --ring: 198 93% 60%;
+    
+    /* Sidebar Specific */
+    --sidebar-background: 216 28% 6%;
+    --sidebar-foreground: 210 40% 85%;
+    --sidebar-primary: 198 93% 60%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 217 26% 12%;
+    --sidebar-accent-foreground: 210 40% 85%;
+    --sidebar-border: 217 26% 15%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(198 93% 60%), hsl(198 93% 70%));
+    --gradient-card: linear-gradient(145deg, hsl(217 26% 12%), hsl(217 26% 15%));
+    --gradient-glow: radial-gradient(circle at center, hsl(198 93% 60% / 0.15), transparent);
+    
+    /* Shadows */
+    --shadow-card: 0 8px 32px hsl(216 27% 4% / 0.8);
+    --shadow-glow: 0 0 40px hsl(198 93% 60% / 0.3);
+    --shadow-subtle: 0 4px 16px hsl(216 27% 4% / 0.6);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-muted/20;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/40 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/60;
+  }
+}
+
+@layer components {
+  /* Dashboard Card Base */
+  .dashboard-card {
+    @apply bg-card border border-border/50 rounded-lg shadow-[var(--shadow-card)] backdrop-blur-sm;
+    background: var(--gradient-card);
+  }
+  
+  /* Glow Effect */
+  .glow-effect {
+    @apply relative;
+  }
+  
+  .glow-effect::before {
+    content: '';
+    @apply absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300;
+    background: var(--gradient-glow);
+    z-index: -1;
+  }
+  
+  .glow-effect:hover::before {
+    @apply opacity-100;
+  }
+  
+  /* Animated Gradient Text */
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Pulse Animation */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes pulse-glow {
+    from {
+      box-shadow: 0 0 20px hsl(198 93% 60% / 0.4);
+    }
+    to {
+      box-shadow: 0 0 30px hsl(198 93% 60% / 0.8);
+    }
+  }
+  
+  /* Slide Up Animation */
+  .slide-up {
+    animation: slide-up 0.6s ease-out forwards;
+  }
+  
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Stagger Animation Delays */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
