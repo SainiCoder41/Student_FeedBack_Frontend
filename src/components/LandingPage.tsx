@@ -20,7 +20,10 @@ import {
   ChevronRight,
   Sparkles,
   Orbit,
-  Globe
+  Globe,
+  GraduationCap,
+  Library,
+  University
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -29,9 +32,8 @@ interface LandingPageProps {
 
 const FloatingOrbs = () => {
   const orbs = [
-    { color: 'from-blue-400 to-cyan-400', size: 'w-64 h-64', delay: 0 },
-    { color: 'from-purple-400 to-pink-400', size: 'w-48 h-48', delay: 2 },
-    { color: 'from-green-400 to-emerald-400', size: 'w-32 h-32', delay: 4 },
+    { color: 'from-blue-50 to-cyan-50', size: 'w-64 h-64', delay: 0 },
+    { color: 'from-slate-50 to-gray-50', size: 'w-48 h-48', delay: 2 },
   ];
 
   return (
@@ -39,14 +41,13 @@ const FloatingOrbs = () => {
       {orbs.map((orb, index) => (
         <motion.div
           key={index}
-          className={`absolute bg-gradient-to-br ${orb.color} rounded-full blur-3xl opacity-20 ${orb.size}`}
+          className={`absolute bg-gradient-to-br ${orb.color} rounded-full blur-3xl opacity-60 ${orb.size}`}
           animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, -25, 0],
           }}
           transition={{
-            duration: 8,
+            duration: 15,
             delay: orb.delay,
             repeat: Infinity,
             ease: "easeInOut",
@@ -62,7 +63,7 @@ const FloatingOrbs = () => {
 };
 
 const AnimatedParticles = () => {
-  const particles = Array.from({ length: 20 }, (_, i) => ({
+  const particles = Array.from({ length: 15 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
@@ -74,13 +75,13 @@ const AnimatedParticles = () => {
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute w-1 h-1 bg-primary rounded-full"
+          className="absolute w-1 h-1 bg-blue-200 rounded-full"
           animate={{
-            y: [0, -100, 0],
-            opacity: [0, 1, 0],
+            y: [0, -80, 0],
+            opacity: [0, 0.5, 0],
           }}
           transition={{
-            duration: 3,
+            duration: 4,
             delay: particle.delay,
             repeat: Infinity,
             ease: "easeInOut",
@@ -95,21 +96,21 @@ const AnimatedParticles = () => {
   );
 };
 
-const InteractiveGlobe = () => {
+const AcademicBadge = () => {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
-  const globeRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!globeRef.current) return;
+      if (!badgeRef.current) return;
       
-      const rect = globeRef.current.getBoundingClientRect();
+      const rect = badgeRef.current.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
       
       setRotation({
-        x: y * 30,
-        y: -x * 30,
+        x: y * 10,
+        y: -x * 10,
       });
     };
 
@@ -119,40 +120,40 @@ const InteractiveGlobe = () => {
 
   return (
     <motion.div
-      ref={globeRef}
-      className="relative w-64 h-64 mx-auto mb-8"
+      ref={badgeRef}
+      className="relative w-48 h-48 mx-auto mb-8"
       animate={{ rotateY: rotation.y, rotateX: rotation.x }}
-      transition={{ type: "spring", stiffness: 100, damping: 10 }}
+      transition={{ type: "spring", stiffness: 50, damping: 10 }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full shadow-2xl shadow-blue-500/50">
-        <div className="absolute inset-4 bg-gradient-to-tr from-cyan-400 to-blue-500 rounded-full opacity-30" />
-        <div className="absolute inset-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full opacity-20" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-slate-100 rounded-full shadow-lg border border-gray-200">
+        <div className="absolute inset-4 bg-white rounded-full opacity-80 border border-gray-100" />
         
-        {/* Grid lines */}
-        <div className="absolute inset-0 rounded-full border-2 border-white/10">
-          <div className="absolute top-1/2 left-0 right-0 h-px bg-white/10 transform -translate-y-1/2" />
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 transform -translate-x-1/2" />
+        <div className="absolute inset-0 rounded-full border-2 border-blue-200/30">
+          <div className="absolute top-1/2 left-0 right-0 h-px bg-blue-200/50 transform -translate-y-1/2" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-blue-200/50 transform -translate-x-1/2" />
         </div>
         
-        {/* Floating elements */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <GraduationCap className="w-16 h-16 text-blue-700" />
+        </div>
+        
         <motion.div
-          className="absolute top-1/4 left-1/4 w-4 h-4 bg-yellow-400 rounded-full shadow-lg"
-          animate={{ y: [0, -10, 0], scale: [1, 1.2, 1] }}
-          transition={{ duration: 3, repeat: Infinity }}
+          className="absolute top-1/4 left-1/4 w-3 h-3 bg-blue-400 rounded-full shadow-sm"
+          animate={{ y: [0, -5, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 4, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-1/3 right-1/3 w-3 h-3 bg-green-400 rounded-full shadow-lg"
-          animate={{ y: [0, 8, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+          className="absolute bottom-1/3 right-1/3 w-2 h-2 bg-slate-400 rounded-full shadow-sm"
+          animate={{ y: [0, 4, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 3, repeat: Infinity, delay: 1 }}
         />
       </div>
-      <Sparkles className="absolute -top-4 -right-4 w-8 h-8 text-yellow-400" />
     </motion.div>
   );
 };
 
 const MorphingText = () => {
-  const texts = ["Student Feedback", "Teacher Insights", "Academic Excellence", "Institutional Growth"];
+  const texts = ["Student Feedback", "Faculty Insights", "Academic Excellence", "Institutional Growth"];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -167,7 +168,7 @@ const MorphingText = () => {
       <AnimatePresence mode="wait">
         <motion.span
           key={index}
-          className="block text-4xl sm:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent"
+          className="block text-4xl sm:text-6xl font-bold bg-gradient-to-r from-blue-800 to-slate-800 bg-clip-text text-transparent"
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -50, opacity: 0 }}
@@ -180,11 +181,11 @@ const MorphingText = () => {
   );
 };
 
-const HolographicCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+const AcademicCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
   return (
-    <div className={`relative ${className}`}>
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-      <div className="relative bg-background rounded-lg border border-border/50">
+    <div className={`relative bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 ${className}`}>
+      <div className="absolute -inset-1 bg-gradient-to-r from-blue-50 to-slate-50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="relative bg-white rounded-lg border border-gray-200">
         {children}
       </div>
     </div>
@@ -207,59 +208,59 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
     {
       icon: BookOpen,
       title: "Digital Feedback Collection",
-      description: "Replace paper-based feedback with secure, fast, and analyzable digital workflows"
+      description: "Replace paper-based feedback with secure, efficient digital workflows designed for academic institutions"
     },
     {
       icon: Users,
       title: "Role-Based Access Control", 
-      description: "Separate portals for Students, Teachers, and Administrators with appropriate permissions"
+      description: "Dedicated portals for Students, Faculty, and Administrators with appropriate permissions and privacy controls"
     },
     {
       icon: BarChart3,
       title: "Advanced Analytics",
-      description: "Generate comprehensive reports with charts, graphs, and AI-powered insights"
+      description: "Generate comprehensive academic reports with detailed charts, graphs, and actionable insights"
     },
     {
       icon: Shield,
-      title: "Secure & Anonymous",
-      description: "Anonymous feedback submission with robust security measures and data protection"
+      title: "Secure & Confidential",
+      description: "Anonymous feedback submission with enterprise-grade security measures and data protection"
     }
   ];
 
   const stats = [
     { number: "95%", label: "Time Saved", icon: Clock },
     { number: "100%", label: "Digital Accuracy", icon: CheckCircle },
-    { number: "4.9/5", label: "User Rating", icon: Star },
-    { number: "50K+", label: "Feedback Collected", icon: TrendingUp }
+    { number: "4.8/5", label: "Satisfaction Rate", icon: Star },
+    { number: "50K+", label: "Feedback Processed", icon: TrendingUp }
   ];
 
   const modules = [
     {
       title: "Student Portal",
-      description: "Easy-to-use interface for students to submit feedback about teachers, subjects, and facilities",
-      features: ["Teacher Selection", "Interactive Forms", "Anonymous Submission", "Real-time Updates"],
-      color: "from-blue-500 to-cyan-500",
+      description: "Intuitive interface for students to provide feedback about courses, faculty, and campus facilities",
+      features: ["Course Selection", "Structured Forms", "Anonymous Submission", "Confirmation Tracking"],
+      color: "from-blue-500 to-blue-600",
       icon: Users
     },
     {
-      title: "Admin Dashboard", 
-      description: "Comprehensive management system for administrators with powerful analytics",
-      features: ["User Management", "Report Generation", "AI Insights", "Export Tools"],
-      color: "from-purple-500 to-pink-500",
+      title: "Administrative Dashboard", 
+      description: "Comprehensive management system for academic administrators with institutional analytics",
+      features: ["User Management", "Report Generation", "Trend Analysis", "Export Capabilities"],
+      color: "from-slate-600 to-slate-700",
       icon: BarChart3
     },
     {
-      title: "Teacher Panel",
-      description: "Dedicated portal for teachers to view their feedback and performance metrics",
-      features: ["Performance Overview", "Feedback Analysis", "Improvement Suggestions", "Trend Monitoring"],
-      color: "from-green-500 to-emerald-500",
+      title: "Faculty Panel",
+      description: "Dedicated portal for faculty to review feedback and track professional development progress",
+      features: ["Performance Metrics", "Feedback Analysis", "Improvement Tracking", "Department Benchmarks"],
+      color: "from-blue-600 to-slate-600",
       icon: Award
     }
   ];
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
-      {/* Animated Background */}
+    <div className="min-h-screen bg-white overflow-hidden">
+      {/* Subtle Background */}
       <FloatingOrbs />
       <AnimatedParticles />
 
@@ -267,29 +268,29 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
       <motion.nav 
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="border-b border-border/50 backdrop-blur-xl bg-background/80 sticky top-0 z-50"
+        className="border-b border-gray-200 backdrop-blur-sm bg-white/90 sticky top-0 z-50"
         style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(120, 119, 198, 0.1) 0%, transparent 50%)`
+          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.05) 0%, transparent 50%)`
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <motion.div 
               className="flex items-center space-x-3"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.02 }}
             >
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25">
-                  <BookOpen className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-700 to-slate-800 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/10">
+                  <University className="w-6 h-6 text-white" />
                 </div>
                 <motion.div
-                  className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-30"
+                  className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-slate-700 rounded-xl blur opacity-20"
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                 />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                FeedbackPro
+              <span className="text-xl font-bold text-slate-900">
+                EduFeedback Pro
               </span>
             </motion.div>
             
@@ -298,10 +299,9 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button className="relative bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-purple-500/25">
+                <Button className="bg-blue-700 hover:bg-blue-800 text-white shadow-lg shadow-blue-500/20 border border-blue-600">
                   <Sparkles className="w-4 h-4 mr-2" />
                   Access Portal
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                 </Button>
               </motion.div>
             </NavLink>
@@ -317,30 +317,30 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
           >
-            <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 backdrop-blur-sm">
+            <Badge className="mb-6 bg-blue-50 text-blue-700 border border-blue-200 backdrop-blur-sm">
               <Sparkles className="w-3 h-3 mr-1" />
-              Next-Gen Educational Feedback System
+              Academic Feedback Management System
             </Badge>
           </motion.div>
 
           <motion.h1 
-            className="text-4xl sm:text-6xl font-bold mb-6"
+            className="text-4xl sm:text-6xl font-bold mb-6 text-slate-900"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Transform Your
+            Enhance Academic
             <MorphingText />
           </motion.h1>
 
           <motion.p 
-            className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto"
+            className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
-            Modernize feedback collection with our AI-powered platform. Reduce paperwork, 
-            increase accuracy, and generate actionable insights for educational excellence.
+            Streamline feedback collection with our purpose-built academic platform. Reduce administrative workload, 
+            ensure data accuracy, and generate meaningful insights to support institutional excellence and continuous improvement.
           </motion.p>
           
           <motion.div 
@@ -349,64 +349,59 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            <NavLink 
-            to="/login">
- <Button 
-              size="lg" 
-              onClick={onGetStarted}
-              className="relative bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-purple-500/25 overflow-hidden group"
-            >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Get Started Now
-              <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-            </Button>
+            <NavLink to="/login">
+              <Button 
+                size="lg" 
+                onClick={onGetStarted}
+                className="bg-blue-700 hover:bg-blue-800 text-white shadow-lg shadow-blue-500/20 border border-blue-600"
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Get Started
+                <ChevronRight className="w-4 h-4 ml-2" />
+              </Button>
             </NavLink>
            
-            <Button size="lg" variant="outline" className="border-primary/20 hover:bg-primary/10 backdrop-blur-sm">
-              <Orbit className="w-4 h-4 mr-2" />
-              Watch Demo
-            </Button>
+          
           </motion.div>
 
-          {/* Interactive Globe */}
+          {/* Academic Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.7, duration: 1 }}
           >
-            <InteractiveGlobe />
+            <AcademicBadge />
           </motion.div>
 
           {/* Stats */}
           <motion.div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8 }}
           >
             {stats.map((stat, index) => (
-              <HolographicCard key={index} className="group cursor-pointer">
+              <AcademicCard key={index} className="group cursor-pointer">
                 <CardContent className="p-6 text-center">
                   <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <stat.icon className="w-8 h-8 text-primary mx-auto mb-2" />
+                    <stat.icon className="w-8 h-8 text-blue-600 mx-auto mb-2" />
                   </motion.div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <div className="text-2xl font-bold text-slate-900">
                     {stat.number}
                   </div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  <div className="text-sm text-slate-600">{stat.label}</div>
                 </CardContent>
-              </HolographicCard>
+              </AcademicCard>
             ))}
           </motion.div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50/50">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             className="text-center mb-16"
@@ -414,11 +409,11 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Powerful Features for Modern Education
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-slate-900">
+              Comprehensive Academic Features
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to collect, analyze, and act on student feedback effectively.
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Designed specifically for higher education institutions to streamline feedback processes.
             </p>
           </motion.div>
 
@@ -431,21 +426,21 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
                 transition={{ delay: index * 0.1, duration: 0.6 }}
                 whileHover={{ y: -5 }}
               >
-                <HolographicCard className="h-full cursor-pointer">
+                <AcademicCard className="h-full cursor-pointer">
                   <CardContent className="p-6 text-center h-full flex flex-col">
                     <motion.div 
-                      className="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/25"
-                      whileHover={{ scale: 1.1, rotate: 360 }}
+                      className="w-16 h-16 bg-gradient-to-br from-blue-600 to-slate-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/10"
+                      whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
                       <feature.icon className="w-8 h-8 text-white" />
                     </motion.div>
-                    <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed flex-grow">
+                    <h3 className="text-xl font-semibold mb-3 text-slate-900">{feature.title}</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed flex-grow">
                       {feature.description}
                     </p>
                   </CardContent>
-                </HolographicCard>
+                </AcademicCard>
               </motion.div>
             ))}
           </div>
@@ -453,7 +448,7 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
       </section>
 
       {/* Modules Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/20">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             className="text-center mb-16"
@@ -461,11 +456,11 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Three Powerful Modules
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-slate-900">
+              Three Integrated Modules
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Tailored experiences for every user type in your educational institution.
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Tailored experiences for every stakeholder in your academic community.
             </p>
           </motion.div>
 
@@ -476,37 +471,37 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2, duration: 0.6 }}
-                whileHover={{ y: -10 }}
+                whileHover={{ y: -5 }}
               >
-                <HolographicCard className="h-full">
-                  <CardHeader>
+                <AcademicCard className="h-full">
+                  <CardHeader className="pb-4">
                     <motion.div 
                       className={`w-full h-32 bg-gradient-to-br ${module.color} rounded-lg mb-4 flex items-center justify-center relative overflow-hidden`}
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.02 }}
                     >
                       <module.icon className="w-12 h-12 text-white z-10" />
                       <div className="absolute inset-0 bg-white/10 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                     </motion.div>
-                    <CardTitle className="text-xl">{module.title}</CardTitle>
-                    <CardDescription className="text-muted-foreground">
+                    <CardTitle className="text-xl text-slate-900">{module.title}</CardTitle>
+                    <CardDescription className="text-slate-600">
                       {module.description}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       {module.features.map((feature, featureIndex) => (
                         <motion.div 
                           key={featureIndex}
-                          className="flex items-center space-x-2"
-                          whileHover={{ x: 5 }}
+                          className="flex items-center space-x-3"
+                          whileHover={{ x: 3 }}
                         >
-                          <CheckCircle className="w-4 h-4 text-primary" />
-                          <span className="text-sm">{feature}</span>
+                          <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                          <span className="text-sm text-slate-700">{feature}</span>
                         </motion.div>
                       ))}
                     </div>
                   </CardContent>
-                </HolographicCard>
+                </AcademicCard>
               </motion.div>
             ))}
           </div>
@@ -514,7 +509,7 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
       </section>
 
       {/* Innovation Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50/50">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             className="text-center mb-16"
@@ -522,43 +517,43 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              AI-Powered Innovation
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-slate-900">
+              Advanced Academic Tools
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Cutting-edge features that set us apart from traditional feedback systems.
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Innovative features designed to support educational excellence and continuous improvement.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Brain, title: "AI Sentiment Analysis", description: "Automatic analysis of text feedback to identify sentiment trends" },
-              { icon: MessageSquare, title: "Voice Feedback", description: "Record and transcribe voice feedback for better insights" },
-              { icon: Zap, title: "Real-time Alerts", description: "Instant notifications for critical feedback patterns" },
-              { icon: Award, title: "Gamification", description: "Reward system to encourage active student participation" }
+              { icon: Brain, title: "Sentiment Analysis", description: "Automated analysis of qualitative feedback to identify key themes and sentiment trends" },
+              { icon: MessageSquare, title: "Structured Feedback", description: "Organized feedback collection with standardized rubrics and rating scales" },
+              { icon: Zap, title: "Real-time Reporting", description: "Instant access to feedback data and analytics for timely decision-making" },
+              { icon: Award, title: "Benchmarking", description: "Compare performance metrics across departments and academic periods" }
             ].map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                whileHover={{ scale: 1.05, rotateY: 10 }}
+                whileHover={{ scale: 1.02 }}
                 className="cursor-pointer"
               >
-                <HolographicCard>
+                <AcademicCard>
                   <CardContent className="p-6 text-center">
                     <motion.div
-                      whileHover={{ scale: 1.2, rotate: 360 }}
+                      whileHover={{ scale: 1.1 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <item.icon className="w-12 h-12 text-primary mx-auto mb-4" />
+                      <item.icon className="w-12 h-12 text-blue-600 mx-auto mb-4" />
                     </motion.div>
-                    <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <h3 className="text-lg font-semibold mb-2 text-slate-900">{item.title}</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
                       {item.description}
                     </p>
                   </CardContent>
-                </HolographicCard>
+                </AcademicCard>
               </motion.div>
             ))}
           </div>
@@ -566,9 +561,9 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-cyan-600" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-black/10 to-black/20" />
+      <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-800 via-slate-800 to-blue-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-slate-900/50 to-slate-900" />
         <AnimatedParticles />
         
         <motion.div 
@@ -578,31 +573,22 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
-            Ready to Transform Your Feedback Process?
+            Ready to Transform Academic Feedback?
           </h2>
-          <p className="text-xl opacity-90 mb-8 text-white/90">
-            Join thousands of educational institutions already using FeedbackPro
+          <p className="text-xl opacity-90 mb-8 text-slate-200">
+            Join leading educational institutions using EduFeedback Pro to enhance their feedback processes
           </p>
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Button 
-              size="lg" 
-              onClick={onGetStarted}
-              className="bg-white text-primary hover:bg-gray-100 shadow-lg font-semibold relative overflow-hidden group"
-            >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Access Portal Now
-              <ChevronRight className="w-4 h-4 ml-2" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-            </Button>
+          
           </motion.div>
         </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/50 py-12 px-4 sm:px-6 lg:px-8 backdrop-blur-sm">
+      <footer className="border-t border-gray-200 py-12 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div 
             className="flex items-center justify-center space-x-3 mb-4"
@@ -611,26 +597,26 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
             transition={{ duration: 0.6 }}
           >
             <div className="relative">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-700 to-slate-800 rounded-lg flex items-center justify-center">
+                <University className="w-5 h-5 text-white" />
               </div>
               <motion.div
-                className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-30"
+                className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-slate-700 rounded-lg blur opacity-20"
                 animate={{ rotate: 360 }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
               />
             </div>
-            <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              FeedbackPro
+            <span className="text-lg font-bold text-slate-900">
+              EduFeedback Pro
             </span>
           </motion.div>
           <motion.p 
-            className="text-muted-foreground"
+            className="text-slate-600"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            © 2024 FeedbackPro. Transforming education through intelligent feedback systems.
+            © 2024 EduFeedback Pro. Supporting academic excellence through intelligent feedback systems.
           </motion.p>
         </div>
       </footer>
